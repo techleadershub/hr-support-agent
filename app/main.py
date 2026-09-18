@@ -35,6 +35,11 @@ app = FastAPI(title="HR Support & Action Agent", version=config.APP_VERSION,
               description="Enterprise HR agent combining RAG over policy documents with transactional leave tools.")
 
 
+@app.exception_handler(db.DBError)
+def _db_error(_request: Request, exc: db.DBError):
+    return JSONResponse(status_code=503, content={"detail": "HR system of record error", "db_status": exc.status, "db_detail": exc.detail})
+
+
 # ---------------------------------------------------------------------------
 # auth / common
 # ---------------------------------------------------------------------------

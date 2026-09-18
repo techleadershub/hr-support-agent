@@ -108,14 +108,14 @@ language plpgsql
 security definer
 as $$
 begin
-  delete from public.hr_leave_requests;
-  delete from public.hr_leave_balances;
-  delete from public.hr_holidays;
-  delete from public.hr_employees;
-  delete from public.hr_audit_log;
+  delete from public.hr_leave_requests where true;
+  delete from public.hr_leave_balances where true;
+  delete from public.hr_holidays where true;
+  delete from public.hr_employees where true;
+  delete from public.hr_audit_log where true;
   if clear_sessions then
-    delete from public.hr_messages;
-    delete from public.hr_sessions;
+    delete from public.hr_messages where true;
+    delete from public.hr_sessions where true;
   end if;
   perform setval('public.hr_request_seq', 1001, false);
 
