@@ -124,7 +124,7 @@ async function send(){
   state.busy=false; $('#send').disabled=false;
 }
 async function init(){
-  $('#key').value=localStorage.getItem('hr_key')||''; $('#key').addEventListener('change',()=>{localStorage.setItem('hr_key',$('#key').value); init();});
+  $('#key').value=localStorage.getItem('hr_key')||''; $('#key').addEventListener('change',()=>{localStorage.setItem('hr_key',$('#key').value); location.reload();});
   try{ const h=await api('/api/health'); $('#status').textContent=(h.ok?'healthy':'degraded')+' · '+h.model; $('#status').className='pill '+(h.ok?'ok':'err'); if(!$('#today').value) $('#today').placeholder=h.today; }catch(e){ $('#status').textContent='offline'; $('#status').className='pill err'; }
   try{
     const e=await api('/api/employees'); $('#employee').innerHTML=e.employees.map(x=>`<option value="${x.employee_id}">${x.employee_id} · ${x.name} · ${x.department}/${x.location} · ${x.employment_type} · ${x.status}</option>`).join('');
